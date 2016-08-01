@@ -9,9 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.muzakki.ahmad.lib.Constant;
-import com.muzakki.ahmad.lib.InternetConnection;
-import com.muzakki.ahmad.lib.services.PersistentConnection;
+import com.muzakki.ahmad.helper.Constant;
+import com.muzakki.ahmad.helper.InternetConnection;
+import com.muzakki.ahmad.helper.PersistentConnection;
 import com.muzakki.ahmad.material.list.ListModel;
 
 import java.util.ArrayList;

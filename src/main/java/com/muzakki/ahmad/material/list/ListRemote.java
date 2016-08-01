@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.muzakki.ahmad.lib.Helper;
-import com.muzakki.ahmad.lib.InternetConnection;
+import com.muzakki.ahmad.helper.Helper;
+import com.muzakki.ahmad.helper.InternetConnection;
 import com.muzakki.ahmad.material.R;
 import com.muzakki.ahmad.material.model.DataCacheModel;
 

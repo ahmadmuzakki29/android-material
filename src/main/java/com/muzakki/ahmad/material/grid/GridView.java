@@ -2,7 +2,7 @@ package com.muzakki.ahmad.material.grid;
 
 import android.view.Gravity;
 
-import com.muzakki.ahmad.lib.Helper;
+import com.muzakki.ahmad.helper.Helper;
 import com.muzakki.ahmad.material.ItemView;
 import com.muzakki.ahmad.material.R;
 

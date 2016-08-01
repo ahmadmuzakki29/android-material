@@ -3,7 +3,7 @@ package com.muzakki.ahmad.material.form;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.muzakki.ahmad.lib.InternetConnection;
+import com.muzakki.ahmad.helper.InternetConnection;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.json.JSONObject;

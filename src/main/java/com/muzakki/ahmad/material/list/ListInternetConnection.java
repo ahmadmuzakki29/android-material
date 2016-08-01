@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.muzakki.ahmad.lib.Helper;
-import com.muzakki.ahmad.lib.InternetConnection;
+import com.muzakki.ahmad.helper.Helper;
+import com.muzakki.ahmad.helper.InternetConnection;
 
 import org.json.JSONObject;
 

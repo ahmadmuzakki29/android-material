@@ -3,8 +3,8 @@ package com.muzakki.ahmad.material.detail;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.muzakki.ahmad.lib.Helper;
-import com.muzakki.ahmad.lib.InternetConnection;
+import com.muzakki.ahmad.helper.Helper;
+import com.muzakki.ahmad.helper.InternetConnection;
 import com.muzakki.ahmad.material.form.Fields;
 
 import org.json.JSONArray;
