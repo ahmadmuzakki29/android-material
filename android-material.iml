@@ -103,6 +103,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="palette-v7-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="layouts-1.10" level="project" />
+    <orderEntry type="library" exported="" name="roundedimageview-2.2.1" level="project" />
     <orderEntry type="library" exported="" name="design-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.3.0" level="project" />
@@ -115,7 +116,6 @@
     <orderEntry type="library" exported="" name="support-vector-drawable-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.3.0" level="project" />
-    <orderEntry type="module" module-name="justifylayout" exported="" />
     <orderEntry type="module" module-name="android-helper" exported="" />
   </component>
 </module>

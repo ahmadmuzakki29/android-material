@@ -20,6 +20,8 @@ android {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile project(':android-helper')
+
     compile 'org.apmem.tools:layouts:1.10@aar'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
@@ -27,6 +29,6 @@ dependencies {
     compile 'com.android.support:palette-v7:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile project(':android-helper')
-    compile project(':justifylayout')
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile 'com.android.support:support-v4:23.3.0'
 }

@@ -3,10 +3,13 @@
     <string name="notfound">Tidak Ditemukan Data</string>
     <string name="galeri">Galeri</string>
     <string name="kamera">Kamera</string>
-    <string name="perhatian" >Perhatian</string>
+    <string name="perhatian">Perhatian</string>
     <string name="not_empty">Harus Diisi</string>
     <string name="pilih_gambar">Pilih Gambar</string>
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>
     <string name="simpan">Simpan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

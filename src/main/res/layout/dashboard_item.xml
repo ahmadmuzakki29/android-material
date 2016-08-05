@@ -4,14 +4,15 @@
     android:layout_width="150dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:clickable="true"
-    android:background="?android:selectableItemBackground"
     android:id="@+id/wrapper"
     android:elevation="@dimen/cardview_default_elevation"
     >
     <LinearLayout
         android:layout_margin="10dp"
         android:orientation="vertical"
+
+        android:clickable="true"
+        android:background="?android:selectableItemBackground"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
