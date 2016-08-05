@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +20,9 @@ public abstract class ListLocal extends List{
 
     private ListModel model;
 
+    public ListLocal(Activity act){
+        this(act,null);
+    }
     public ListLocal(Activity act,Listener listener) {
         super(act,listener);
         this.act = act;
@@ -51,7 +53,7 @@ public abstract class ListLocal extends List{
     }
 
     protected void fetchData(){
-        listener.setLoading(true);
+        if(listener!=null)  listener.setLoading(true);
         String url = getUrl();
         Bundle param = getParam();
 
@@ -67,7 +69,7 @@ public abstract class ListLocal extends List{
 
     public void setListData(ArrayList<Bundle> data){ // called when ready
         if(data.isEmpty()) notifyEmpty();
-        listener.setLoading(false);
+        if(listener!=null) listener.setLoading(false);
         setAdapter(new ListAdapter(this,data));
     }
 
@@ -76,14 +78,15 @@ public abstract class ListLocal extends List{
         return model;
     }
 
-    protected String getTableName(){
-        throw new NotImplementedException("implement table name!");
+    protected abstract String getTableName();
+
+    protected Bundle getParam(){
+        throw new UnsupportedOperationException("getParam Not Implemented!");
     }
 
-
-    protected abstract Bundle getParam();
-
-    protected abstract String getUrl();
+    protected String getUrl(){
+        throw new UnsupportedOperationException("getUrl Not Implemented!");
+    }
 
 
     public void parseData(JSONArray result){

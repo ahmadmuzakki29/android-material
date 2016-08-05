@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.muzakki.ahmad.helper.Constant;
+import com.muzakki.ahmad.helper.Config;
 import com.muzakki.ahmad.helper.InternetConnection;
 import com.muzakki.ahmad.helper.PersistentConnection;
 import com.muzakki.ahmad.material.list.ListModel;
@@ -70,7 +70,7 @@ public class NotificationModel extends ListModel {
         Bundle params = new Bundle();
         params.putString("id",id);
         Intent in = new Intent(ctx, PersistentConnection.class);
-        in.putExtra("url", Constant.URL_RECEIVED);
+        in.putExtra("url", Config.getString(ctx,"url_received"));
         in.putExtra("params",params);
         in.putExtra("method", InternetConnection.GET);
 

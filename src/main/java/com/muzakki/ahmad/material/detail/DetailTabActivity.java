@@ -56,10 +56,16 @@ public abstract class DetailTabActivity extends DetailActivity
         return tabs;
     }
 
+    //Override this
     protected View getTabView(int i){
         Detail detail = getDetail();
         detail.render();
         return detail;
+    }
+
+    @Override
+    protected Detail getDetail() {
+        return null;
     }
 
     private class DetailPagerAdapter extends FragmentStatePagerAdapter{
