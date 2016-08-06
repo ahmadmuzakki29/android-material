@@ -92,7 +92,7 @@ public abstract class DetailTabActivity extends DetailActivity
                 if(fragments.get(position)==null) throw new NullPointerException();
             }catch (NullPointerException | IndexOutOfBoundsException e){
                 fragments.add(position,
-                        DetailFragment.newInstance(position,DetailTabActivity.this));
+                        DetailFragment.newInstance(position));
             }
             return fragments.get(position);
         }
