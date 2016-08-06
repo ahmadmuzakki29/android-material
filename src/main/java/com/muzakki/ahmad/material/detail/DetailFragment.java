@@ -30,6 +30,6 @@ class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int position = getArguments().getInt("position");
-        return detailTabActivity.getTabView(position);
+        return detailTabActivity.getTabView(position,container,savedInstanceState);
     }
 }
