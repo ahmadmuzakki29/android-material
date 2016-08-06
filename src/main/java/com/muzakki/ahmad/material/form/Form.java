@@ -108,7 +108,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         setOrientation(VERTICAL);
     }
 
-    public void renderFields(){
+    public void render(){
         int screenSize = act.getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -855,7 +855,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
     public void notifyOrientationChanged(){
         enumerateValues();
         removeAllViews();
-        renderFields();
+        render();
     }
 
     public void alertNull(String title){

@@ -57,6 +57,7 @@ public class Database extends SQLiteOpenHelper {
         try {
             for(int i=0;i<reset_table.length();i++){
                 String tb = reset_table.getString(i);
+                Log.i("jeki","resetting table "+ tb);
                 db.execSQL("drop table if exists "+tb);
 
                 JSONObject table = tables.getJSONObject(tb);
@@ -67,7 +68,7 @@ public class Database extends SQLiteOpenHelper {
                         String val = initValues.getString(j);
                         db.execSQL(val);
                     }
-                }catch (JSONException e){}
+                }catch (JSONException e){ e.printStackTrace();}
             }
 
         } catch (JSONException e) {
@@ -77,7 +78,6 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         resetTable(sqLiteDatabase);
-        Log.i("jeki","upgrade");
     }
 
     @Override

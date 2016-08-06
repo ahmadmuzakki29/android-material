@@ -68,7 +68,7 @@ public abstract class FormActivity extends AppCompatActivity
             form.setDataId(extras.getString("id"));
             form.initData();
         }
-        form.renderFields();
+        form.render();
 
         ScrollView parent = (ScrollView) findViewById(R.id.container);
         parent.addView(form);
