@@ -70,6 +70,10 @@ public abstract class DetailTabActivity extends DetailActivity
         return null;
     }
 
+    protected DetailFragment.Listener getListener(int position) {
+        return null;
+    }
+
     private class DetailPagerAdapter extends FragmentStatePagerAdapter{
 
         private final ArrayList<Fragment> fragments;
