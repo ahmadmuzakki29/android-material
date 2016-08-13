@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.muzakki.ahmad.helper.Database;
+
 /**
  * Created by jeki on 6/8/16.
  */
