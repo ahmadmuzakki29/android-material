@@ -26,7 +26,7 @@ import org.apache.commons.lang3.NotImplementedException;
 public abstract class DetailActivity extends AppCompatActivity
         implements AppBarLayout.OnOffsetChangedListener {
     private boolean isHideToolbarView = false;
-    protected final int START_ACTIVITY_EDIT = 1;
+    protected final int START_ACTIVITY_EDIT = 300;
 
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
