@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,7 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +72,8 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
     public static final int DEFAULT_PICTURE = R.drawable.picture;
     private final AppCompatActivity act;
     private final Fields fields;
+    private final Resources.Theme theme;
+    private final int colorPrimary;
     private boolean wide = false;
     private HashMap<String,View> views = new HashMap<>();
     private String mCurrentPhotoPath;
@@ -97,6 +101,12 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         this.listener = listener;
         this.saveType = saveType;
         this.action = action;
+        this.theme = act.getTheme();
+
+        TypedValue typedValue = new TypedValue();
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        colorPrimary = typedValue.data;
+
         initForm();
     }
 
@@ -293,7 +303,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
             rb.setId(myGenerateViewId());
             rb.setTextSize(getTextSize());
 
-            rb.setSupportButtonTintList(ContextCompat.getColorStateList(act, R.color.primary));
+            rb.setSupportButtonTintList(ContextCompat.getColorStateList(act, colorPrimary));
             rg.addView(rb);
         }
         views.put(field.getName(),rg);
