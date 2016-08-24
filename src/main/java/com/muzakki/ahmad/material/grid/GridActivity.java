@@ -45,7 +45,7 @@ public abstract class GridActivity extends AppCompatActivity implements Grid.Lis
         loading = findViewById(R.id.loading);
 
         swipe.setOnRefreshListener(this);
-        int[] colors = new int[]{R.color.primary,android.R.color.holo_red_light,android.R.color.holo_blue_light};
+        int[] colors = new int[]{R.color.colorPrimary,android.R.color.holo_red_light,android.R.color.holo_blue_light};
         swipe.setColorSchemeResources(colors);
 
 

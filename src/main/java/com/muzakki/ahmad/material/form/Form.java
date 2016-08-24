@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -89,6 +90,10 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
     private String dataId;
     protected FormModel model;
     private HashMap<String,View> btnDelArray = new HashMap<>();
+
+    public Action getAction() {
+        return action;
+    }
 
     public enum SaveType{
         SERVER,LOCAL, type, BOTH
@@ -362,7 +367,8 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         btnGallery.setLayoutParams(lp2);
         btnGallery.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_gallery, 0, 0, 0);
         btnGallery.setCompoundDrawablePadding(getDp(7));
-        btnGallery.setBackground(act.getResources().getDrawable(R.drawable.bg_btn));
+        btnGallery.setBackground(
+                ResourcesCompat.getDrawable(getResources(),R.drawable.bg_btn,act.getTheme()));
         btnGallery.setPadding(getDp(15),0,getDp(15),0);
         btnGallery.setTextSize(getTextSizeSmall());
         btnGallery.setText(act.getString(R.string.galeri));
@@ -375,7 +381,8 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         btnCamera.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_camera, 0, 0, 0);
         btnCamera.setCompoundDrawablePadding(getDp(7));
         btnCamera.setText(act.getString(R.string.kamera));
-        btnCamera.setBackground(act.getResources().getDrawable(R.drawable.bg_btn));
+        btnCamera.setBackground(
+                ResourcesCompat.getDrawable(act.getResources(),R.drawable.bg_btn,act.getTheme()));
         btnCamera.setPadding(getDp(15),0,getDp(15),0);
         btnCamera.setTextSize(getTextSizeSmall());
         wrapBtn.addView(btnCamera);
@@ -602,7 +609,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
             cb.setId(myGenerateViewId());
             cb.setTextSize(getTextSize());
 
-            cb.setSupportButtonTintList(ContextCompat.getColorStateList(act, R.color.primary));
+            cb.setSupportButtonTintList(ContextCompat.getColorStateList(act, R.color.colorPrimary));
             wrapper.addView(cb);
         }
         views.put(field.getName(),wrapper);

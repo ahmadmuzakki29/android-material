@@ -24,7 +24,6 @@ public abstract class FormActivity extends AppCompatActivity
         implements Form.Listener{
 
     private Form form;
-    private Form.Action action = Form.Action.ADD;
 
     private ProgressDialog progress;
 
@@ -39,17 +38,12 @@ public abstract class FormActivity extends AppCompatActivity
         }
 
         Bundle extras = getIntent().getExtras();
-        if(extras.getString("title")!=null){
+        if(extras!=null && extras.getString("title")!=null){
             setTitle(extras.getString("title"));
         }
-        action = (Form.Action) extras.getSerializable("action");
 
         progress = new ProgressDialog(this);
         progress.setMessage("Mohon Tunggu...");
-    }
-
-    public Form.Action getAction() {
-        return action;
     }
 
     protected void setTitle(String title){
@@ -64,7 +58,7 @@ public abstract class FormActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         form = getForm();
         form.setModel(getModel());
-        if(action!=null && action== Form.Action.EDIT){
+        if(form.getAction()== Form.Action.EDIT){
             form.setDataId(extras.getString("id"));
             form.initData();
         }
@@ -123,7 +117,7 @@ public abstract class FormActivity extends AppCompatActivity
         Intent in = new Intent();
         in.putExtra("id",id);
         setResult(RESULT_OK, in);
-        if(action== Form.Action.ADD) {
+        if(form.getAction()== Form.Action.ADD) {
             finish();
         }else{
             Toast.makeText(this,"Data Berhasil Disimpan",Toast.LENGTH_LONG).show();

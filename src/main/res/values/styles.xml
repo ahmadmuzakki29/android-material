@@ -3,10 +3,10 @@
     <!-- Base application theme. -->
     <style name="MaterialTheme" parent="Base.V7.Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="textAppearanceMedium">@style/TextMedium</item>
+        <item name="android:textAppearanceMedium">@style/TextMedium</item>
     </style>
     <style name="MaterialTheme.NoActionBar">
         <item name="windowActionBar">false</item>

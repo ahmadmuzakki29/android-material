@@ -41,7 +41,7 @@ public abstract class ListActivity extends AppCompatActivity implements List.Lis
             ab.setTitle(getTitleList());
         }
         parent = ((SwipeRefreshLayout) findViewById(R.id.list_wrap));
-        int[] colors = new int[]{R.color.primary,android.R.color.holo_red_light,android.R.color.holo_blue_light};
+        int[] colors = new int[]{R.color.colorPrimary,android.R.color.holo_red_light,android.R.color.holo_blue_light};
         parent.setColorSchemeResources(colors);
         parent.setOnRefreshListener(this);
 
