@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -79,6 +80,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
     private HashMap<String,View> views = new HashMap<>();
     private String mCurrentPhotoPath;
     int activityCode;
+    private final int ACTIVITY_CODE = 400;
     private static final int MAX_SIZE_SQUARE = 400;
     private static final int MAX_SIZE_TOP = 400,MAX_SIZE_BOTTOM = 300;
     private static final String IMAGE_DIR = "images";
@@ -128,7 +130,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
         int orientation = act.getResources().getConfiguration().orientation;
-        activityCode=1; // reset this
+        activityCode=ACTIVITY_CODE; // reset this
 
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
@@ -201,7 +203,10 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         }
 
         txt.setHint(field.getTitle());
-        return txt;
+        TextInputLayout wrapper = new TextInputLayout(getContext());
+        wrapper.setLayoutParams(getDefaultLayoutParams());
+        wrapper.addView(txt);
+        return wrapper;
     }
 
     private View getPassword(Field field){
@@ -230,7 +235,10 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         }
 
         txt.setHint(field.getTitle());
-        return txt;
+        TextInputLayout wrapper = new TextInputLayout(getContext());
+        wrapper.setLayoutParams(getDefaultLayoutParams());
+        wrapper.addView(txt);
+        return wrapper;
     }
 
     private View getTextArea(Field field){
@@ -260,7 +268,10 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
             return getTitleWrap(txt, field);
         }
         txt.setHint(field.getTitle());
-        return txt;
+        TextInputLayout wrapper = new TextInputLayout(getContext());
+        wrapper.setLayoutParams(getDefaultLayoutParams());
+        wrapper.addView(txt);
+        return wrapper;
     }
 
     private View getRadio(Field field) {
@@ -320,6 +331,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
     }
 
     private View getImage(Field field){
+        Field.Image imgField = (Field.Image) field;
         LinearLayout wrapper = new LinearLayout(act);
         wrapper.setLayoutParams(getDefaultLayoutParams());
         wrapper.setOrientation(LinearLayout.VERTICAL);
@@ -328,7 +340,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         LayoutParams lp = getLayoutParamsWrap();
         lp.gravity = Gravity.CENTER_HORIZONTAL;
         tv.setLayoutParams(lp);
-        tv.setText(field.getTitle());
+        tv.setText(imgField.getTitle());
         tv.setTextSize(getTextSize());
         wrapper.addView(tv);
 
@@ -338,11 +350,11 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         LayoutParams lp0 = getLayoutParamsWrap();
         lp0.gravity = Gravity.RIGHT|Gravity.END;
         delBtn.setLayoutParams(lp0);
-        delBtn.setOnClickListener(new DeleteImageClick(field));
-        boolean notNull = field.getValue()!=null && !field.getValue().equals("");
+        delBtn.setOnClickListener(new DeleteImageClick(imgField));
+        boolean notNull = imgField.getValue()!=null && !imgField.getValue().equals("");
         delBtn.setVisibility(notNull?VISIBLE:GONE);
         wrapper.addView(delBtn);
-        btnDelArray.put(field.getName(),delBtn);
+        btnDelArray.put(imgField.getName(),delBtn);
 
 
         ImageView img = new ImageView(act);
@@ -350,7 +362,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         img.setLayoutParams(lp);
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         wrapper.addView(img);
-        field.setImageView(img);
+        imgField.setImageView(img);
 
 
         LinearLayout wrapBtn = new LinearLayout(act);
@@ -390,13 +402,13 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
 
 
         // assign listener
-        field.setCameraCode(activityCode);
+        imgField.setCameraCode(activityCode);
         btnCamera.setOnClickListener(new CameraClick(activityCode++));
-        field.setGalleryCode(activityCode);
+        imgField.setGalleryCode(activityCode);
         btnGallery.setOnClickListener(new GalleryClick(activityCode++));
 
         if(notNull){
-            field.showImage();
+            imgField.showImage();
         }else{
             img.setImageBitmap(BitmapFactory.decodeResource(act.getResources(), DEFAULT_PICTURE));
         }
@@ -888,13 +900,13 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
     public void onResult(int requestCode,Intent data) {
         for(Field field: fields){
             if(field.getType()==Field.Type.IMAGE) {
-
-                if (requestCode == field.getCameraCode()) {
-                    saveCamera(field);
+                Field.Image img = (Field.Image) field;
+                if (requestCode == img.getCameraCode()) {
+                    saveCamera(img);
                 }
-                if (requestCode == field.getGalleryCode()) {
+                if (requestCode == img.getGalleryCode()) {
                     Uri uri = data.getData();
-                    saveGallery(field, uri);
+                    saveGallery(img, uri);
                 }
             }
         }
@@ -917,7 +929,8 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
                 f.delete();
             }
             field.setValue(null);
-            field.getImageView().setImageBitmap(
+            Field.Image img = (Field.Image) field;
+            img.getImageView().setImageBitmap(
                     BitmapFactory.decodeResource(act.getResources(), DEFAULT_PICTURE));
             view.setVisibility(GONE);
         }
@@ -999,7 +1012,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         act.startActivityForResult(Intent.createChooser(chooserIntent, act.getString(R.string.pilih_gambar)), code);
     }
 
-    public void saveCamera(Field field){
+    public void saveCamera(Field.Image field){
         Bitmap bm = BitmapFactory.decodeFile(mCurrentPhotoPath);
         int orientation = getOrientation(mCurrentPhotoPath);
 
@@ -1015,7 +1028,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         saveImage(field,bm);
     }
 
-    public void saveGallery(Field field,Uri uri){
+    public void saveGallery(Field.Image field,Uri uri){
         Bitmap bm = getPictureFromMedia(uri);
         int orientation = getOrientation(uri);
         if(orientation!=0){
@@ -1029,8 +1042,8 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
         saveImage(field,bm);
     }
 
-    private void saveImage(Field field,Bitmap bm){
-        if(field.getOrientation()== Field.Orientation.SQUARE) {
+    private void saveImage(Field.Image field,Bitmap bm){
+        if(field.getOrientation()== Field.Image.Orientation.SQUARE) {
             int min = bm.getWidth()<bm.getHeight()? bm.getWidth():bm.getHeight();
             bm = Bitmap.createBitmap(bm,(bm.getWidth()-min)/2,
                     (bm.getHeight()-min)/2
@@ -1038,7 +1051,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
             if (min > MAX_SIZE_SQUARE) {
                 bm = Bitmap.createScaledBitmap(bm, MAX_SIZE_SQUARE, MAX_SIZE_SQUARE, true);
             }
-        }else if(field.getOrientation()== Field.Orientation.POTRAIT){
+        }else if(field.getOrientation()== Field.Image.Orientation.POTRAIT){
             if(bm.getHeight()>MAX_SIZE_TOP){
                 bm = Bitmap.createScaledBitmap(bm, MAX_SIZE_BOTTOM, MAX_SIZE_TOP, true);
             }
@@ -1048,7 +1061,7 @@ public abstract class Form extends LinearLayout implements FormInternetConnectio
                         (bm.getHeight()-min)/2
                         ,min, min);
             }
-        }else if(field.getOrientation()== Field.Orientation.LANDSCAPE){
+        }else if(field.getOrientation()== Field.Image.Orientation.LANDSCAPE){
             if(bm.getWidth()>MAX_SIZE_TOP){
                 bm = Bitmap.createScaledBitmap(bm, MAX_SIZE_TOP,MAX_SIZE_BOTTOM, true);
             }

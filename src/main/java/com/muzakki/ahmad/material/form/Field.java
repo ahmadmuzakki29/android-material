@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Created by jeki on 5/30/16.
  */
 public class Field implements Parcelable {
-    private final Type type;
+    private Type type;
     private final String name;
 
     private String title;
@@ -25,21 +25,7 @@ public class Field implements Parcelable {
     private int background;
     private ArrayList<Item> items;
 
-    // Image Fields
-    private int cameraCode;
-    private int galleryCode;
     private int pickerCode;
-    private Orientation orientation;
-    private ImageView imageView;
-
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
-
-    public void showImage() {
-        Bitmap bm = BitmapFactory.decodeFile(getValue());
-        imageView.setImageBitmap(bm);
-    }
 
     public int getPickerCode() {
         return pickerCode;
@@ -49,44 +35,12 @@ public class Field implements Parcelable {
         this.pickerCode = pickerCode;
     }
 
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public enum Orientation{
-        POTRAIT,LANDSCAPE,SQUARE
-    }
-
     public String getKode() {
         return kode;
     }
 
     public void setKode(String kode) {
         this.kode = kode;
-    }
-
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-    }
-
-    public int getGalleryCode() {
-        return galleryCode;
-    }
-
-    public void setGalleryCode(int galleryCode) {
-        this.galleryCode = galleryCode;
-    }
-
-    public int getCameraCode() {
-        return cameraCode;
-    }
-
-    public void setCameraCode(int cameraCode) {
-        this.cameraCode = cameraCode;
     }
 
     public ArrayList<Item> getItems() {
@@ -110,8 +64,15 @@ public class Field implements Parcelable {
     }
 
     public Field(String name,Type type){
+        if(type==Type.IMAGE){
+            throw new IllegalArgumentException("You should create object with Field.Image");
+        }
         this.name = name;
         this.type = type;
+    }
+
+    private Field(String name){
+        this.name = name;
     }
 
     public String getName() {
@@ -166,7 +127,7 @@ public class Field implements Parcelable {
         value = in.readString();
         drawable = in.readInt();
         background = in.readInt();
-        orientation = (Orientation) in.readSerializable();
+
         if (in.readByte() == 0x01) {
             items = new ArrayList<>();
             in.readList(items, Item.class.getClassLoader());
@@ -189,7 +150,7 @@ public class Field implements Parcelable {
         dest.writeString(value);
         dest.writeInt(drawable);
         dest.writeInt(background);
-        dest.writeSerializable(orientation);
+
         if (items == null) {
             dest.writeByte((byte) (0x00));
         } else {
@@ -210,4 +171,82 @@ public class Field implements Parcelable {
             return new Field[size];
         }
     };
+
+    public static class Image extends Field{
+
+        private int cameraCode;
+        private int galleryCode;
+        private ImageView imageView;
+        private Orientation orientation = Orientation.SQUARE;
+
+        public int getCameraCode() {
+            return cameraCode;
+        }
+
+        public void setCameraCode(int cameraCode) {
+            this.cameraCode = cameraCode;
+        }
+
+        public enum Orientation{
+            POTRAIT,LANDSCAPE,SQUARE
+        }
+
+        public Image(String name){
+            super(name);
+            super.type = Type.IMAGE;
+        }
+
+        protected Image(Parcel in){
+            super(in);
+            orientation = (Orientation) in.readSerializable();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeSerializable(orientation);
+        }
+
+        public static final Creator<Field> CREATOR = new Creator<Field>() {
+            @Override
+            public Field createFromParcel(Parcel in) {
+                return new Image(in);
+            }
+
+            @Override
+            public Field[] newArray(int size) {
+                return new Image[size];
+            }
+        };
+
+        public Orientation getOrientation() {
+            return orientation;
+        }
+
+        public void setOrientation(Orientation orientation) {
+            this.orientation = orientation;
+        }
+
+
+        public int getGalleryCode() {
+            return galleryCode;
+        }
+
+        public void setGalleryCode(int galleryCode) {
+            this.galleryCode = galleryCode;
+        }
+
+        public ImageView getImageView() {
+            return imageView;
+        }
+
+        public void setImageView(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        public void showImage() {
+            Bitmap bm = BitmapFactory.decodeFile(getValue());
+            imageView.setImageBitmap(bm);
+        }
+    }
 }
